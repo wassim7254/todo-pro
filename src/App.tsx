@@ -1,13 +1,17 @@
-import React, {
+import {
   useEffect,
   useState,
 } from 'react'
+
 import { Profile } from './features/todos/components/Profile'
+
 import {
   AuthProvider,
   useAuth,
 } from './context/AuthContext'
+
 import Logout from './features/todos/components/Logout'
+
 import {
   SettingsProvider,
 } from './context/SettingsContext'
@@ -51,7 +55,7 @@ function AppRouter() {
     if (isLoading) {
       return
     }
-    
+
     if (!isAuthenticated) {
       if (
         typeof window !== 'undefined' &&
@@ -97,12 +101,15 @@ function AppRouter() {
   if (path === '/settings') {
     return <Settings />
   }
+
   if (path === '/profile') {
-  return <Profile />
-}
-if (path === '/logout') {
-  return <Logout />
-}
+    return <Profile />
+  }
+
+  if (path === '/logout') {
+    return <Logout />
+  }
+
   return <TodoApp />
 }
 

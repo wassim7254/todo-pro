@@ -25,7 +25,6 @@ import { useTranslation } from 'react-i18next'
 import {
   useSettings,
   type AccentPreset,
-  type ThemeMode,
 } from '../context/SettingsContext'
 
 import {
@@ -103,9 +102,7 @@ function SettingRow({
         <h3
           className={[
             'text-sm font-extrabold',
-            danger
-              ? 'text-red-500'
-              : 'text-[var(--text)]',
+            danger ? 'text-red-500' : 'text-[var(--text)]',
           ].join(' ')}
         >
           {title}
@@ -118,11 +115,7 @@ function SettingRow({
         )}
       </div>
 
-      {children && (
-        <div className="shrink-0">
-          {children}
-        </div>
-      )}
+      {children && <div className="shrink-0">{children}</div>}
     </div>
   )
 }
@@ -150,9 +143,7 @@ function Toggle({
       <span
         className={[
           'block size-5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.18)] transition-transform duration-200',
-          checked
-            ? 'translate-x-5'
-            : 'translate-x-0',
+          checked ? 'translate-x-5' : 'translate-x-0',
         ].join(' ')}
       />
     </button>
@@ -254,20 +245,11 @@ export default function Settings() {
     resetSettings,
   } = useSettings()
 
-  const [active, setActive] =
-    useState('appearance')
+  const [active, setActive] = useState('appearance')
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
 
-  const [showResetConfirm, setShowResetConfirm] =
-    useState(false)
-
-  const sectionLabels: Record<
-    string,
-    string
-  > = {
-    appearance: t(
-      'settings.appearance',
-      'Appearance',
-    ),
+  const sectionLabels: Record<string, string> = {
+    appearance: t('settings.appearance', 'Appearance'),
     languageRegion: t(
       'settings.languageRegion',
       'Language & region',
@@ -287,19 +269,14 @@ export default function Settings() {
     about: t('settings.about', 'About'),
   }
 
-  const sectionsWithLabels =
-    sections.map((section) => ({
-      ...section,
-      label:
-        sectionLabels[section.id] ??
-        section.label,
-    }))
+  const sectionsWithLabels = sections.map((section) => ({
+    ...section,
+    label: sectionLabels[section.id] ?? section.label,
+  }))
 
   const goHome = () => {
     window.history.pushState({}, '', '/')
-    window.dispatchEvent(
-      new PopStateEvent('popstate'),
-    )
+    window.dispatchEvent(new PopStateEvent('popstate'))
   }
 
   const resetEverything = () => {
@@ -344,41 +321,15 @@ export default function Settings() {
       >
         <div className="overflow-hidden rounded-[1.7rem] border border-[var(--border)] bg-[var(--surface)] shadow-[0_15px_50px_rgba(45,41,48,0.055)]">
           <div className="p-5 sm:p-7 lg:p-8">
-            {active === 'appearance' && (
-              <AppearanceSection />
-            )}
-
-            {active === 'languageRegion' && (
-              <LanguageSection />
-            )}
-
-            {active === 'notifications' && (
-              <NotificationsSection />
-            )}
-
-            {active === 'tasks' && (
-              <TasksSection />
-            )}
-
-            {active === 'account' && (
-              <AccountSection />
-            )}
-
-            {active === 'privacy' && (
-              <PrivacySection />
-            )}
-
-            {active === 'accessibility' && (
-              <AccessibilitySection />
-            )}
-
-            {active === 'data' && (
-              <DataSection />
-            )}
-
-            {active === 'about' && (
-              <AboutSection />
-            )}
+            {active === 'appearance' && <AppearanceSection />}
+            {active === 'languageRegion' && <LanguageSection />}
+            {active === 'notifications' && <NotificationsSection />}
+            {active === 'tasks' && <TasksSection />}
+            {active === 'account' && <AccountSection />}
+            {active === 'privacy' && <PrivacySection />}
+            {active === 'accessibility' && <AccessibilitySection />}
+            {active === 'data' && <DataSection />}
+            {active === 'about' && <AboutSection />}
           </div>
         </div>
       </SettingsLayout>
@@ -397,18 +348,15 @@ export default function Settings() {
                 </h2>
 
                 <p className="mt-2 text-sm font-medium leading-5 text-[var(--muted)]">
-                  All appearance, language,
-                  notification, task and accessibility
-                  preferences will return to their
-                  defaults.
+                  All appearance, language, notification,
+                  task and accessibility preferences will
+                  return to their defaults.
                 </p>
               </div>
 
               <button
                 type="button"
-                onClick={() =>
-                  setShowResetConfirm(false)
-                }
+                onClick={() => setShowResetConfirm(false)}
                 className="grid size-9 place-items-center rounded-xl hover:bg-black/5 dark:hover:bg-white/10"
               >
                 <X size={18} />
@@ -418,9 +366,7 @@ export default function Settings() {
             <div className="mt-6 flex gap-2">
               <button
                 type="button"
-                onClick={() =>
-                  setShowResetConfirm(false)
-                }
+                onClick={() => setShowResetConfirm(false)}
                 className="flex-1 rounded-xl bg-black/5 px-4 py-3 text-sm font-extrabold dark:bg-white/10"
               >
                 Cancel
@@ -446,36 +392,12 @@ export default function Settings() {
       value: string
       label: string
     }[] = [
-      {
-        id: 'peach',
-        value: '#ffb86b',
-        label: 'Peach',
-      },
-      {
-        id: 'pink',
-        value: '#f39ab8',
-        label: 'Pink',
-      },
-      {
-        id: 'lavender',
-        value: '#8d7cf5',
-        label: 'Lavender',
-      },
-      {
-        id: 'blue',
-        value: '#70a7ff',
-        label: 'Blue',
-      },
-      {
-        id: 'mint',
-        value: '#72cbbb',
-        label: 'Mint',
-      },
-      {
-        id: 'yellow',
-        value: '#e9c46a',
-        label: 'Yellow',
-      },
+      { id: 'peach', value: '#ffb86b', label: 'Peach' },
+      { id: 'pink', value: '#f39ab8', label: 'Pink' },
+      { id: 'lavender', value: '#8d7cf5', label: 'Lavender' },
+      { id: 'blue', value: '#70a7ff', label: 'Blue' },
+      { id: 'mint', value: '#72cbbb', label: 'Mint' },
+      { id: 'yellow', value: '#e9c46a', label: 'Yellow' },
     ]
 
     return (
@@ -491,11 +413,7 @@ export default function Settings() {
           <div className="flex flex-wrap gap-2">
             <PillButton
               active={settings.theme === 'light'}
-              onClick={() =>
-                updateSettings({
-                  theme: 'light',
-                })
-              }
+              onClick={() => updateSettings({ theme: 'light' })}
             >
               <span className="inline-flex items-center gap-2">
                 <Sun size={15} />
@@ -505,11 +423,7 @@ export default function Settings() {
 
             <PillButton
               active={settings.theme === 'dark'}
-              onClick={() =>
-                updateSettings({
-                  theme: 'dark',
-                })
-              }
+              onClick={() => updateSettings({ theme: 'dark' })}
             >
               <span className="inline-flex items-center gap-2">
                 <Moon size={15} />
@@ -519,11 +433,7 @@ export default function Settings() {
 
             <PillButton
               active={settings.theme === 'system'}
-              onClick={() =>
-                updateSettings({
-                  theme: 'system',
-                })
-              }
+              onClick={() => updateSettings({ theme: 'system' })}
             >
               <span className="inline-flex items-center gap-2">
                 <Laptop size={15} />
@@ -534,10 +444,7 @@ export default function Settings() {
         </SettingRow>
 
         <SettingRow
-          title={t(
-            'settings.accentColor',
-            'Accent color',
-          )}
+          title={t('settings.accentColor', 'Accent color')}
           description="Pick the color used for buttons, highlights and controls."
         >
           <div className="flex flex-wrap gap-2">
@@ -554,22 +461,16 @@ export default function Settings() {
                 }
                 className={[
                   'relative grid size-10 place-items-center rounded-full border-2 transition hover:scale-105',
-                  settings.accentPreset ===
-                  accent.id
+                  settings.accentPreset === accent.id
                     ? 'border-[var(--text)]'
                     : 'border-transparent',
                 ].join(' ')}
                 style={{
-                  backgroundColor:
-                    accent.value,
+                  backgroundColor: accent.value,
                 }}
               >
-                {settings.accentPreset ===
-                  accent.id && (
-                  <Check
-                    size={17}
-                    className="text-[#292635]"
-                  />
+                {settings.accentPreset === accent.id && (
+                  <Check size={17} className="text-[#292635]" />
                 )}
               </button>
             ))}
@@ -589,8 +490,7 @@ export default function Settings() {
                 onChange={(event) =>
                   updateSettings({
                     accentPreset: 'custom',
-                    customAccent:
-                      event.target.value,
+                    customAccent: event.target.value,
                   })
                 }
                 className="size-14 cursor-pointer"
@@ -605,28 +505,17 @@ export default function Settings() {
         >
           <div className="flex gap-2">
             <PillButton
-              active={
-                settings.density ===
-                'comfortable'
-              }
+              active={settings.density === 'comfortable'}
               onClick={() =>
-                updateSettings({
-                  density: 'comfortable',
-                })
+                updateSettings({ density: 'comfortable' })
               }
             >
               Comfortable
             </PillButton>
 
             <PillButton
-              active={
-                settings.density === 'compact'
-              }
-              onClick={() =>
-                updateSettings({
-                  density: 'compact',
-                })
-              }
+              active={settings.density === 'compact'}
+              onClick={() => updateSettings({ density: 'compact' })}
             >
               Compact
             </PillButton>
@@ -639,27 +528,15 @@ export default function Settings() {
         >
           <div className="flex gap-2">
             <PillButton
-              active={
-                settings.corners === 'rounded'
-              }
-              onClick={() =>
-                updateSettings({
-                  corners: 'rounded',
-                })
-              }
+              active={settings.corners === 'rounded'}
+              onClick={() => updateSettings({ corners: 'rounded' })}
             >
               Rounded
             </PillButton>
 
             <PillButton
-              active={
-                settings.corners === 'sharp'
-              }
-              onClick={() =>
-                updateSettings({
-                  corners: 'sharp',
-                })
-              }
+              active={settings.corners === 'sharp'}
+              onClick={() => updateSettings({ corners: 'sharp' })}
             >
               Sharp
             </PillButton>
@@ -683,29 +560,15 @@ export default function Settings() {
           <Select
             value={settings.language}
             onChange={(event) =>
-              updateSettings({
-                language: event.target.value,
-              })
+              updateSettings({ language: event.target.value })
             }
           >
-            <option value="en">
-              English
-            </option>
-            <option value="fr">
-              Français
-            </option>
-            <option value="ar">
-              العربية
-            </option>
-            <option value="es">
-              Español
-            </option>
-            <option value="de">
-              Deutsch
-            </option>
-            <option value="tr">
-              Türkçe
-            </option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="ar">العربية</option>
+            <option value="es">Español</option>
+            <option value="de">Deutsch</option>
+            <option value="tr">Türkçe</option>
           </Select>
         </SettingRow>
 
@@ -716,21 +579,12 @@ export default function Settings() {
           <Select
             value={settings.dateFormat}
             onChange={(event) =>
-              updateSettings({
-                dateFormat:
-                  event.target.value,
-              })
+              updateSettings({ dateFormat: event.target.value })
             }
           >
-            <option>
-              MM/DD/YYYY
-            </option>
-            <option>
-              DD/MM/YYYY
-            </option>
-            <option>
-              YYYY-MM-DD
-            </option>
+            <option>MM/DD/YYYY</option>
+            <option>DD/MM/YYYY</option>
+            <option>YYYY-MM-DD</option>
           </Select>
         </SettingRow>
 
@@ -742,19 +596,12 @@ export default function Settings() {
             value={settings.timeFormat}
             onChange={(event) =>
               updateSettings({
-                timeFormat:
-                  event.target.value as
-                    | '12h'
-                    | '24h',
+                timeFormat: event.target.value as '12h' | '24h',
               })
             }
           >
-            <option value="12h">
-              12-hour
-            </option>
-            <option value="24h">
-              24-hour
-            </option>
+            <option value="12h">12-hour</option>
+            <option value="24h">24-hour</option>
           </Select>
         </SettingRow>
 
@@ -766,19 +613,14 @@ export default function Settings() {
             value={settings.firstDayOfWeek}
             onChange={(event) =>
               updateSettings({
-                firstDayOfWeek:
-                  event.target.value as
-                    | 'sunday'
-                    | 'monday',
+                firstDayOfWeek: event.target.value as
+                  | 'sunday'
+                  | 'monday',
               })
             }
           >
-            <option value="sunday">
-              Sunday
-            </option>
-            <option value="monday">
-              Monday
-            </option>
+            <option value="sunday">Sunday</option>
+            <option value="monday">Monday</option>
           </Select>
         </SettingRow>
       </Section>
@@ -820,28 +662,22 @@ export default function Settings() {
         description="Control which task reminders you want to receive."
         icon={Bell}
       >
-        {items.map(
-          ([key, title, description]) => (
-            <SettingRow
-              key={key}
-              title={title}
-              description={description}
-            >
-              <Toggle
-                checked={
-                  settings.notifications[
-                    key
-                  ]
-                }
-                onChange={(value) =>
-                  updateNotifications({
-                    [key]: value,
-                  })
-                }
-              />
-            </SettingRow>
-          ),
-        )}
+        {items.map(([key, title, description]) => (
+          <SettingRow
+            key={key}
+            title={title}
+            description={description}
+          >
+            <Toggle
+              checked={settings.notifications[key]}
+              onChange={(value) =>
+                updateNotifications({
+                  [key]: value,
+                })
+              }
+            />
+          </SettingRow>
+        ))}
       </Section>
     )
   }
@@ -858,29 +694,19 @@ export default function Settings() {
           description="Priority automatically used for new tasks."
         >
           <Select
-            value={
-              settings.tasks
-                .defaultPriority
-            }
+            value={settings.tasks.defaultPriority}
             onChange={(event) =>
               updateTasks({
-                defaultPriority:
-                  event.target.value as
-                    | 'low'
-                    | 'medium'
-                    | 'high',
+                defaultPriority: event.target.value as
+                  | 'low'
+                  | 'medium'
+                  | 'high',
               })
             }
           >
-            <option value="low">
-              Low
-            </option>
-            <option value="medium">
-              Medium
-            </option>
-            <option value="high">
-              High
-            </option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
           </Select>
         </SettingRow>
 
@@ -889,37 +715,23 @@ export default function Settings() {
           description="Category automatically used for new tasks."
         >
           <Select
-            value={
-              settings.tasks
-                .defaultCategory
-            }
+            value={settings.tasks.defaultCategory}
             onChange={(event) =>
               updateTasks({
-                defaultCategory:
-                  event.target.value as
-                    | 'personal'
-                    | 'work'
-                    | 'study'
-                    | 'health'
-                    | 'other',
+                defaultCategory: event.target.value as
+                  | 'personal'
+                  | 'work'
+                  | 'study'
+                  | 'health'
+                  | 'other',
               })
             }
           >
-            <option value="personal">
-              Personal
-            </option>
-            <option value="work">
-              Work
-            </option>
-            <option value="study">
-              Study
-            </option>
-            <option value="health">
-              Health
-            </option>
-            <option value="other">
-              Other
-            </option>
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="study">Study</option>
+            <option value="health">Health</option>
+            <option value="other">Other</option>
           </Select>
         </SettingRow>
 
@@ -928,14 +740,9 @@ export default function Settings() {
           description="Ask for confirmation before permanently deleting a task."
         >
           <Toggle
-            checked={
-              settings.tasks
-                .confirmDelete
-            }
+            checked={settings.tasks.confirmDelete}
             onChange={(value) =>
-              updateTasks({
-                confirmDelete: value,
-              })
+              updateTasks({ confirmDelete: value })
             }
           />
         </SettingRow>
@@ -945,14 +752,9 @@ export default function Settings() {
           description="Keep completed tasks out of your normal task list."
         >
           <Toggle
-            checked={
-              settings.tasks
-                .archiveCompleted
-            }
+            checked={settings.tasks.archiveCompleted}
             onChange={(value) =>
-              updateTasks({
-                archiveCompleted: value,
-              })
+              updateTasks({ archiveCompleted: value })
             }
           />
         </SettingRow>
@@ -962,14 +764,9 @@ export default function Settings() {
           description="Display completed tasks in task views."
         >
           <Toggle
-            checked={
-              settings.tasks
-                .showCompleted
-            }
+            checked={settings.tasks.showCompleted}
             onChange={(value) =>
-              updateTasks({
-                showCompleted: value,
-              })
+              updateTasks({ showCompleted: value })
             }
           />
         </SettingRow>
@@ -989,15 +786,9 @@ export default function Settings() {
               })
             }
           >
-            <option value="due">
-              Due date
-            </option>
-            <option value="priority">
-              Priority
-            </option>
-            <option value="created">
-              Created date
-            </option>
+            <option value="due">Due date</option>
+            <option value="priority">Priority</option>
+            <option value="created">Created date</option>
           </Select>
         </SettingRow>
       </Section>
@@ -1023,8 +814,8 @@ export default function Settings() {
               </p>
 
               <p className="text-xs font-medium text-[var(--muted)]">
-                Account authentication is handled
-                by the login page.
+                Account authentication is handled by the
+                login page.
               </p>
             </div>
           </div>
@@ -1073,14 +864,9 @@ export default function Settings() {
           description="Reduce interface animations and transitions."
         >
           <Toggle
-            checked={
-              settings.accessibility
-                .reduceMotion
-            }
+            checked={settings.accessibility.reduceMotion}
             onChange={(value) =>
-              updateAccessibility({
-                reduceMotion: value,
-              })
+              updateAccessibility({ reduceMotion: value })
             }
           />
         </SettingRow>
@@ -1090,14 +876,9 @@ export default function Settings() {
           description="Increase text size across the application."
         >
           <Toggle
-            checked={
-              settings.accessibility
-                .largerText
-            }
+            checked={settings.accessibility.largerText}
             onChange={(value) =>
-              updateAccessibility({
-                largerText: value,
-              })
+              updateAccessibility({ largerText: value })
             }
           />
         </SettingRow>
@@ -1107,14 +888,9 @@ export default function Settings() {
           description="Increase contrast between text, backgrounds and controls."
         >
           <Toggle
-            checked={
-              settings.accessibility
-                .highContrast
-            }
+            checked={settings.accessibility.highContrast}
             onChange={(value) =>
-              updateAccessibility({
-                highContrast: value,
-              })
+              updateAccessibility({ highContrast: value })
             }
           />
         </SettingRow>
@@ -1124,10 +900,7 @@ export default function Settings() {
           description="Keep keyboard-friendly navigation enabled."
         >
           <Toggle
-            checked={
-              settings.accessibility
-                .keyboardNavigation
-            }
+            checked={settings.accessibility.keyboardNavigation}
             onChange={(value) =>
               updateAccessibility({
                 keyboardNavigation: value,
@@ -1141,29 +914,18 @@ export default function Settings() {
 
   function DataSection() {
     const exportTasks = () => {
-      const data =
-        localStorage.getItem(
-          'todo-pro:todos:v1',
-        )
-
+      const data = localStorage.getItem('todo-pro:todos:v1')
       const payload = data ?? '[]'
 
-      const blob = new Blob(
-        [payload],
-        {
-          type: 'application/json',
-        },
-      )
+      const blob = new Blob([payload], {
+        type: 'application/json',
+      })
 
-      const url =
-        URL.createObjectURL(blob)
-
-      const anchor =
-        document.createElement('a')
+      const url = URL.createObjectURL(blob)
+      const anchor = document.createElement('a')
 
       anchor.href = url
-      anchor.download =
-        'todo-pro-tasks.json'
+      anchor.download = 'todo-pro-tasks.json'
 
       document.body.appendChild(anchor)
       anchor.click()
@@ -1173,22 +935,17 @@ export default function Settings() {
     }
 
     const clearCompleted = () => {
-      const raw =
-        localStorage.getItem(
-          'todo-pro:todos:v1',
-        )
+      const raw = localStorage.getItem('todo-pro:todos:v1')
 
       if (!raw) return
 
       try {
         const todos = JSON.parse(raw)
 
-        const remaining =
-          todos.filter(
-            (todo: {
-              isCompleted: boolean
-            }) => !todo.isCompleted,
-          )
+        const remaining = todos.filter(
+          (todo: { isCompleted: boolean }) =>
+            !todo.isCompleted,
+        )
 
         localStorage.setItem(
           'todo-pro:todos:v1',
@@ -1202,20 +959,14 @@ export default function Settings() {
     }
 
     const resetApp = () => {
-      const confirmed =
-        window.confirm(
-          'Reset all Todo data? This will delete your tasks and settings.',
-        )
+      const confirmed = window.confirm(
+        'Reset all Todo data? This will delete your tasks and settings.',
+      )
 
       if (!confirmed) return
 
-      localStorage.removeItem(
-        'todo-pro:settings:v1',
-      )
-
-      localStorage.removeItem(
-        'todo-pro:todos:v1',
-      )
+      localStorage.removeItem('todo-pro:settings:v1')
+      localStorage.removeItem('todo-pro:todos:v1')
 
       window.location.reload()
     }
@@ -1250,36 +1001,22 @@ export default function Settings() {
               type="file"
               accept="application/json"
               className="hidden"
-              onChange={async (
-                event,
-              ) => {
-                const file =
-                  event.target.files?.[0]
+              onChange={async (event) => {
+                const file = event.target.files?.[0]
 
                 if (!file) return
 
                 try {
-                  const text =
-                    await file.text()
+                  const text = await file.text()
+                  const parsed = JSON.parse(text)
 
-                  const parsed =
-                    JSON.parse(text)
-
-                  if (
-                    !Array.isArray(
-                      parsed,
-                    )
-                  ) {
-                    throw new Error(
-                      'Invalid task format',
-                    )
+                  if (!Array.isArray(parsed)) {
+                    throw new Error('Invalid task format')
                   }
 
                   localStorage.setItem(
                     'todo-pro:todos:v1',
-                    JSON.stringify(
-                      parsed,
-                    ),
+                    JSON.stringify(parsed),
                   )
 
                   window.location.reload()
@@ -1300,11 +1037,7 @@ export default function Settings() {
           <button
             type="button"
             onClick={() => {
-              if (
-                window.confirm(
-                  'Clear all completed tasks?',
-                )
-              ) {
+              if (window.confirm('Clear all completed tasks?')) {
                 clearCompleted()
               }
             }}
@@ -1320,9 +1053,7 @@ export default function Settings() {
         >
           <button
             type="button"
-            onClick={() =>
-              setShowResetConfirm(true)
-            }
+            onClick={() => setShowResetConfirm(true)}
             className="w-full rounded-xl bg-red-500/10 px-4 py-2.5 text-sm font-extrabold text-red-500 sm:w-auto"
           >
             Reset settings
@@ -1367,22 +1098,16 @@ export default function Settings() {
           title="Product"
           description="A quieter way to plan."
         >
-          <span className="font-extrabold">
-            Todo
-          </span>
+          <span className="font-extrabold">Todo</span>
         </SettingRow>
 
         <div className="mt-5 rounded-2xl bg-[var(--accent)]/15 p-4">
           <div className="flex gap-3">
-            <Zap
-              size={19}
-              className="mt-0.5 shrink-0"
-            />
+            <Zap size={19} className="mt-0.5 shrink-0" />
 
             <p className="text-sm font-semibold leading-5">
-              Your settings are saved
-              automatically whenever you change
-              them.
+              Your settings are saved automatically
+              whenever you change them.
             </p>
           </div>
         </div>

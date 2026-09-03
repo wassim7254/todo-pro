@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Settings } from 'lucide-react'
+
 import { useAuth } from '../context/AuthContext'
 import { Avatar } from './Avatar'
-import { Settings } from 'lucide-react'
+
 export function ProfileMenu() {
   const { t } = useTranslation()
   const { user, logout } = useAuth()
@@ -17,17 +19,28 @@ export function ProfileMenu() {
       }
     }
 
-    document.addEventListener('mousedown', handleClick)
+    document.addEventListener(
+      'mousedown',
+      handleClick,
+    )
 
     return () => {
-      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener(
+        'mousedown',
+        handleClick,
+      )
     }
   }, [])
 
-  if (!user) return null
+  if (!user) {
+    return null
+  }
 
   return (
-    <div className="relative" ref={ref}>
+    <div
+      className="relative"
+      ref={ref}
+    >
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
@@ -46,11 +59,13 @@ export function ProfileMenu() {
           </p>
 
           <p className="text-xs text-[var(--muted)]">
-            @{user.username}
+            @{user.name}
           </p>
         </div>
 
-        <span className="text-xs">⌄</span>
+        <span className="text-xs">
+          ⌄
+        </span>
       </button>
 
       {open && (
@@ -77,13 +92,22 @@ export function ProfileMenu() {
               type="button"
               className="w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-black/5 dark:hover:bg-white/10"
               onClick={() => {
-                window.history.pushState({}, '', '/settings')
-                window.dispatchEvent(new PopStateEvent('popstate'))
+                window.history.pushState(
+                  {},
+                  '',
+                  '/settings',
+                )
+
+                window.dispatchEvent(
+                  new PopStateEvent('popstate'),
+                )
+
                 setOpen(false)
               }}
             >
               <div className="flex items-center gap-2">
-                <Settings className="w-5 h-5" />
+                <Settings className="h-5 w-5" />
+
                 {t('navigation.settings')}
               </div>
             </button>

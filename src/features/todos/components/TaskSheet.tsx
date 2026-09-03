@@ -7,17 +7,19 @@ import {
   Trash2,
   X,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CSSProperties } from 'react'
+
 import {
   categories,
   priorityMeta,
 } from '../data/categories'
+
 import type {
   Todo,
   TodoDraft,
 } from '../types/todo.types'
+
 import {
   formatDueLabel,
   fromDateInput,
@@ -133,7 +135,7 @@ function CategoryCharacter({
   category: string
   completed: boolean
 }) {
-  let body: JSX.Element
+  let body: ReactNode
 
   switch (category) {
     case 'personal':
@@ -188,7 +190,12 @@ function CategoryCharacter({
             strokeLinecap="round"
             strokeWidth="4"
           />
-          <circle cx="82" cy="72" r="4" fill="#7764e8" />
+          <circle
+            cx="82"
+            cy="72"
+            r="4"
+            fill="#7764e8"
+          />
         </>
       )
       break
@@ -561,7 +568,10 @@ function TaskBuddy({
         sm:h-[118px]
         sm:w-[122px]
       "
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{
+        opacity: 0,
+        scale: 0.9,
+      }}
       animate={{
         opacity: 1,
         scale: completed ? 1.02 : 1,
@@ -1477,7 +1487,9 @@ export function TaskSheet({
                     value={draft.time ?? ''}
                     onChange={(event) =>
                       updateDraft({
-                        time: event.target.value || undefined,
+                        time:
+                          event.target.value ||
+                          undefined,
                       })
                     }
                     className={inputClassName}

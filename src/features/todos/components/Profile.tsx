@@ -4,7 +4,6 @@ import {
   Camera,
   Check,
   Crown,
-  ImagePlus,
   LogOut,
   Mail,
   Pencil,
@@ -449,10 +448,6 @@ export function Profile() {
               },
             )
 
-  /* ---------------------------------------------------------------------- */
-  /* Editing                                                                */
-  /* ---------------------------------------------------------------------- */
-
   const startEditing = () => {
     setName(user?.name ?? '')
     setEmail(user?.email ?? '')
@@ -617,10 +612,6 @@ export function Profile() {
     return null
   }
 
-  /* ====================================================================== */
-  /* EDIT PROFILE — FULL PAGE                                               */
-  /* ====================================================================== */
-
   if (editing) {
     return (
       <motion.div
@@ -635,10 +626,6 @@ export function Profile() {
           text-foreground
         "
       >
-        {/* ================================================================ */}
-        {/* PLAYFUL BACKGROUND                                                */}
-        {/* ================================================================ */}
-
         <div
           aria-hidden="true"
           className="
@@ -753,10 +740,6 @@ export function Profile() {
           </span>
         </div>
 
-        {/* ================================================================ */}
-        {/* PAGE                                                              */}
-        {/* ================================================================ */}
-
         <main
           className="
             relative
@@ -773,10 +756,6 @@ export function Profile() {
             lg:px-8
           "
         >
-          {/* ============================================================ */}
-          {/* HEADER                                                        */}
-          {/* ============================================================ */}
-
           <header
             className="
               flex
@@ -856,10 +835,6 @@ export function Profile() {
               </Sticker>
             </div>
           </header>
-
-          {/* ============================================================ */}
-          {/* FUNNY HERO                                                    */}
-          {/* ============================================================ */}
 
           <motion.section
             initial={{
@@ -1040,10 +1015,6 @@ export function Profile() {
             </div>
           </motion.section>
 
-          {/* ============================================================ */}
-          {/* MAIN EDIT GRID                                                */}
-          {/* ============================================================ */}
-
           <div
             className="
               mt-7
@@ -1053,10 +1024,6 @@ export function Profile() {
               lg:items-start
             "
           >
-            {/* ========================================================== */}
-            {/* AVATAR                                                      */}
-            {/* ========================================================== */}
-
             <motion.section
               initial={{
                 opacity: 0,
@@ -1396,10 +1363,6 @@ export function Profile() {
               </div>
             </motion.section>
 
-            {/* ========================================================== */}
-            {/* FORM                                                        */}
-            {/* ========================================================== */}
-
             <motion.section
               initial={{
                 opacity: 0,
@@ -1488,10 +1451,6 @@ export function Profile() {
                 </p>
               </div>
 
-              {/* ======================================================== */}
-              {/* ERROR                                                      */}
-              {/* ======================================================== */}
-
               {error && (
                 <motion.div
                   initial={{
@@ -1533,10 +1492,6 @@ export function Profile() {
                   </div>
                 </motion.div>
               )}
-
-              {/* ======================================================== */}
-              {/* NAME                                                        */}
-              {/* ======================================================== */}
 
               <div className="mt-7">
                 <label
@@ -1627,10 +1582,6 @@ export function Profile() {
                 </div>
               </div>
 
-              {/* ======================================================== */}
-              {/* EMAIL                                                       */}
-              {/* ======================================================== */}
-
               <div className="mt-6">
                 <label
                   htmlFor="profile-email"
@@ -1720,10 +1671,6 @@ export function Profile() {
                   </span>
                 </div>
               </div>
-
-              {/* ======================================================== */}
-              {/* MINI PREVIEW                                               */}
-              {/* ======================================================== */}
 
               <div
                 className="
@@ -1838,10 +1785,6 @@ export function Profile() {
                   </span>
                 </div>
               </div>
-
-              {/* ======================================================== */}
-              {/* ACTIONS                                                     */}
-              {/* ======================================================== */}
 
               <div
                 className="
@@ -1985,10 +1928,6 @@ export function Profile() {
             </motion.section>
           </div>
 
-          {/* ============================================================ */}
-          {/* BOTTOM FUNNY CARD                                             */}
-          {/* ============================================================ */}
-
           <motion.section
             initial={{
               opacity: 0,
@@ -2096,10 +2035,6 @@ export function Profile() {
             </div>
           </motion.section>
 
-          {/* ============================================================ */}
-          {/* FOOTER                                                        */}
-          {/* ============================================================ */}
-
           <footer className="pb-3 pt-8 text-center">
             <div
               className="
@@ -2119,7 +2054,7 @@ export function Profile() {
                   font-black
                   text-muted-foreground
                 "
-                >
+              >
                 Small steps. Big progress.
               </span>
 
@@ -2133,10 +2068,6 @@ export function Profile() {
     )
   }
 
-  /* ====================================================================== */
-  /* NORMAL PROFILE PAGE                                                    */
-  /* ====================================================================== */
-
   return (
     <div
       className="
@@ -2146,10 +2077,6 @@ export function Profile() {
         text-foreground
       "
     >
-      {/* ================================================================== */}
-      {/* BACKGROUND                                                         */}
-      {/* ================================================================== */}
-
       <div
         aria-hidden="true"
         className="
@@ -2211,10 +2138,6 @@ export function Profile() {
           lg:px-8
         "
       >
-        {/* ================================================================= */}
-        {/* HEADER                                                            */}
-        {/* ================================================================= */}
-
         <header
           className="
             flex
@@ -2295,10 +2218,6 @@ export function Profile() {
             </Sticker>
           </div>
         </header>
-
-        {/* ================================================================= */}
-        {/* HERO                                                              */}
-        {/* ================================================================= */}
 
         <motion.section
           initial={{
@@ -2560,10 +2479,6 @@ export function Profile() {
           </div>
         </motion.section>
 
-        {/* ================================================================= */}
-        {/* PRODUCTIVITY                                                       */}
-        {/* ================================================================= */}
-
         <section className="mt-7">
           <div className="mb-4 flex items-end justify-between gap-4">
             <div>
@@ -2575,7 +2490,7 @@ export function Profile() {
                   tracking-[0.2em]
                   text-[#7764e8]
                 "
-                >
+              >
                 {t(
                   'productivity.title',
                   {
@@ -2592,7 +2507,7 @@ export function Profile() {
                   font-black
                   tracking-[-0.055em]
                 "
-                >
+              >
                 {t(
                   'profile.yourProgress',
                   {
@@ -2903,10 +2818,6 @@ export function Profile() {
           </div>
         </section>
 
-        {/* ================================================================= */}
-        {/* ACCOUNT                                                            */}
-        {/* ================================================================= */}
-
         <section className="mt-7">
           <div className="mb-4 flex items-center gap-3">
             <div
@@ -2943,7 +2854,7 @@ export function Profile() {
                   font-bold
                   text-muted-foreground
                 "
-                >
+              >
                 {t(
                   'profile.accountSubtitle',
                   {
@@ -3069,10 +2980,6 @@ export function Profile() {
           </div>
         </section>
 
-        {/* ================================================================= */}
-        {/* ACHIEVEMENT                                                        */}
-        {/* ================================================================= */}
-
         <motion.section
           initial={{
             opacity: 0,
@@ -3180,10 +3087,6 @@ export function Profile() {
           </div>
         </motion.section>
 
-        {/* ================================================================= */}
-        {/* LOGOUT                                                            */}
-        {/* ================================================================= */}
-
         <section className="mt-7">
           <button
             type="button"
@@ -3241,7 +3144,7 @@ export function Profile() {
                   font-bold
                   text-muted-foreground
                 "
-                >
+              >
                 {t(
                   'profile.signOutDescription',
                   {
@@ -3264,10 +3167,6 @@ export function Profile() {
             </span>
           </button>
         </section>
-
-        {/* ================================================================= */}
-        {/* FOOTER                                                            */}
-        {/* ================================================================= */}
 
         <footer className="pb-3 pt-8 text-center">
           <div className="flex items-center justify-center gap-2">
@@ -3300,3 +3199,5 @@ export function Profile() {
     </div>
   )
 }
+
+export default Profile
