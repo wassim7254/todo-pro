@@ -1,0 +1,538 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+:root {
+  --background: #f8f1eb;
+  --surface: #ffffff;
+  --surface-muted: #f4eeea;
+  --text: #292635;
+  --muted: #817a78;
+  --primary: #2d2942;
+  --accent: #ffb86b;
+  --border: #e8e0dc;
+
+  --radius: 1.25rem;
+  --spacing-scale: 1;
+}
+
+* {
+  box-sizing: border-box;
+  cursor: url("/pen-cursor.svg") 4 28, auto;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--background);
+  color: var(--text);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+
+  background:
+    radial-gradient(
+      circle at 2% 10%,
+      color-mix(in srgb, var(--accent) 18%, transparent),
+      transparent 24rem
+    ),
+    radial-gradient(
+      circle at 96% 92%,
+      rgba(226, 212, 255, 0.18),
+      transparent 30rem
+    ),
+    var(--background);
+
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+/* =========================================================
+   THEMES
+   ========================================================= */
+
+html[data-resolved-theme="dark"] {
+  --background: #17151b;
+  --surface: #242129;
+  --surface-muted: #2c2832;
+  --text: #f7f3f0;
+  --muted: #aaa2a0;
+  --primary: #ffffff;
+  --border: #39343d;
+
+  --task-bg-dark: #2a2229;
+  --task-border-dark: #513944;
+}
+
+html[data-resolved-theme="light"] {
+  --background: #f8f1eb;
+  --surface: #ffffff;
+  --surface-muted: #f4eeea;
+  --text: #292635;
+  --muted: #817a78;
+  --primary: #2d2942;
+  --border: #e8e0dc;
+
+  --task-bg-light: #fff8fa;
+  --task-border-light: #ffd0df;
+}
+/* =========================================================
+   DENSITY
+   ========================================================= */
+
+html[data-density="compact"] {
+  --spacing-scale: 0.82;
+}
+
+html[data-density="comfortable"] {
+  --spacing-scale: 1;
+}
+
+/*
+ * Provides a useful middle ground for components that consume
+ * the spacing variable directly.
+ */
+html[data-density="compact"] {
+  --density-padding: 0.82;
+}
+
+html[data-density="comfortable"] {
+  --density-padding: 1;
+}
+
+/* =========================================================
+   CORNERS
+   ========================================================= */
+
+html[data-corners="sharp"] {
+  --radius: 0.25rem;
+}
+
+html[data-corners="rounded"] {
+  --radius: 1.25rem;
+}
+
+/*
+ * Components that use rounded utilities can opt into the
+ * application radius through these helpers.
+ */
+.app-radius {
+  border-radius: var(--radius);
+}
+
+.app-radius-lg {
+  border-radius: calc(var(--radius) * 1.15);
+}
+
+.app-radius-sm {
+  border-radius: calc(var(--radius) * 0.65);
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+html.accessibility-large-text {
+  font-size: 112.5%;
+}
+
+/*
+ * High contrast is intentionally layered on top of the
+ * existing light/dark theme instead of replacing the theme.
+ *
+ * The goal is stronger readability without destroying the
+ * Todo visual identity.
+ */
+
+html.accessibility-high-contrast {
+  --text: #17151b;
+  --muted: #4b4542;
+  --border: #25211f;
+}
+
+html[data-resolved-theme="dark"].accessibility-high-contrast {
+  --background: #0d0c0f;
+  --surface: #17151b;
+  --surface-muted: #242027;
+  --text: #ffffff;
+  --muted: #e4dfdc;
+  --primary: #ffffff;
+  --border: #ffffff;
+}
+
+/*
+ * Stronger controls when high contrast is enabled.
+ */
+
+html.accessibility-high-contrast
+  button,
+html.accessibility-high-contrast
+  input,
+html.accessibility-high-contrast
+  select,
+html.accessibility-high-contrast
+  textarea {
+  border-color: var(--border);
+}
+
+html.accessibility-high-contrast
+  button:focus-visible,
+html.accessibility-high-contrast
+  input:focus-visible,
+html.accessibility-high-contrast
+  select:focus-visible,
+html.accessibility-high-contrast
+  textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+html.accessibility-high-contrast
+  .task-card,
+html.accessibility-high-contrast
+  .task-detail-card {
+  border-width: 2px;
+}
+
+html.accessibility-high-contrast
+  .app-surface-muted {
+  border: 1px solid var(--border);
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* =========================================================
+   TASK CARDS
+   ========================================================= */
+
+:root {
+  --task-bg-light: #fff8f5;
+  --task-border-light: #f3cbd8;
+
+  --task-bg-dark: #29242d;
+  --task-border-dark: #514955;
+}
+
+html[data-resolved-theme="dark"] .task-card,
+html[data-resolved-theme="dark"] .task-detail-card {
+  border-color: var(--task-border-dark);
+  background: var(--task-bg-dark);
+}
+
+html[data-resolved-theme="light"] .task-card,
+html[data-resolved-theme="light"] .task-detail-card {
+  border-color: var(--task-border-light);
+  background: var(--task-bg-light);
+}
+
+/*
+ * High contrast should override pastel task borders so
+ * cards remain distinguishable without relying only on color.
+ */
+
+html.accessibility-high-contrast .task-card,
+html.accessibility-high-contrast .task-detail-card {
+  border-color: var(--border);
+  border-width: 2px;
+}
+
+/* =========================================================
+   NATIVE DATE / TIME CONTROLS
+   ========================================================= */
+
+html[data-resolved-theme="dark"]
+  input[type="date"],
+html[data-resolved-theme="dark"]
+  input[type="time"] {
+  color-scheme: dark;
+}
+
+html[data-resolved-theme="light"]
+  input[type="date"],
+html[data-resolved-theme="light"]
+  input[type="time"] {
+  color-scheme: light;
+}
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* =========================================================
+   GLOBAL ELEMENTS
+   ========================================================= */
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid color-mix(
+    in srgb,
+    var(--accent) 55%,
+    transparent
+  );
+  outline-offset: 2px;
+}
+
+input,
+textarea {
+  caret-color: var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: #292635;
+}
+
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+}
+
+/* =========================================================
+   THEME UTILITY CLASSES
+   ========================================================= */
+
+.app-bg {
+  background: var(--background);
+}
+
+.app-surface {
+  background: var(--surface);
+}
+
+.app-surface-muted {
+  background: var(--surface-muted);
+}
+
+.app-text {
+  color: var(--text);
+}
+
+.app-muted {
+  color: var(--muted);
+}
+
+.app-primary {
+  color: var(--primary);
+}
+
+.app-border {
+  border-color: var(--border);
+}
+
+.app-accent {
+  color: var(--accent);
+}
+
+.app-accent-bg {
+  background: var(--accent);
+}
+
+.app-ring {
+  box-shadow:
+    0 0 0 3px color-mix(
+      in srgb,
+      var(--accent) 20%,
+      transparent
+    );
+}
+
+/* =========================================================
+   COMMON TAILWIND OVERRIDES
+   ========================================================= */
+
+/*
+ * These intentionally target only the generic utility colors
+ * that were used throughout the original Todo UI.
+ *
+ * Components should progressively migrate to the app-* classes
+ * above rather than relying on these compatibility overrides.
+ */
+
+.bg-white {
+  background-color: var(--surface) !important;
+}
+
+.text-white {
+  color: var(--text) !important;
+}
+
+.border-white {
+  border-color: var(--border) !important;
+}
+
+.text-gray-400,
+.text-gray-500,
+.text-gray-600 {
+  color: var(--muted) !important;
+}
+
+.border-gray-100,
+.border-gray-200,
+.border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+.bg-gray-50,
+.bg-gray-100 {
+  background-color: var(--surface-muted) !important;
+}
+
+/*
+ * Dark mode compatibility for common explicit Tailwind
+ * dark classes used by the original UI.
+ */
+
+html[data-resolved-theme="dark"] .bg-gray-50,
+html[data-resolved-theme="dark"] .bg-gray-100 {
+  background-color: var(--surface-muted) !important;
+}
+
+html[data-resolved-theme="dark"] .text-gray-700,
+html[data-resolved-theme="dark"] .text-gray-800,
+html[data-resolved-theme="dark"] .text-gray-900 {
+  color: var(--text) !important;
+}
+
+html[data-resolved-theme="dark"] .border-gray-200,
+html[data-resolved-theme="dark"] .border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+/* =========================================================
+   SCROLLBARS
+   ========================================================= */
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+/* =========================================================
+   Todo pastel task cards
+   ========================================================= */
+
+html[data-resolved-theme="dark"] .task-card,
+html[data-resolved-theme="dark"] .task-detail-card {
+  border-color: var(--task-border-dark);
+  background: var(--task-bg-dark);
+}
+
+html[data-resolved-theme="light"] .task-card,
+html[data-resolved-theme="light"] .task-detail-card {
+  border-color: var(--task-border-light);
+  background: var(--task-bg-light);
+}
+
+/* Native date/time controls */
+html[data-resolved-theme="dark"] input[type="date"],
+html[data-resolved-theme="dark"] input[type="time"] {
+  color-scheme: dark;
+}
+
+html[data-resolved-theme="light"] input[type="date"],
+html[data-resolved-theme="light"] input[type="time"] {
+  color-scheme: light;
+}
+
+/* Selection should remain readable */
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+
+  html.accessibility-large-text {
+    font-size: 16.875px;
+  }
+}
+
+/* =========================================================
+   SYSTEM THEME FALLBACK
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+  /*
+   * SettingsContext normally sets data-resolved-theme.
+   * This fallback only applies before React has initialized.
+   */
+  html:not([data-resolved-theme]) {
+    --background: #17151b;
+    --surface: #242129;
+    --surface-muted: #2c2832;
+    --text: #f7f3f0;
+    --muted: #aaa2a0;
+    --primary: #ffffff;
+    --border: #39343d;
+  }
+}
