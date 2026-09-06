@@ -3,6 +3,8 @@ import {
   useState,
 } from 'react'
 
+import { Download } from 'lucide-react'
+
 import { Profile } from './features/todos/components/Profile'
 
 import {
@@ -19,6 +21,131 @@ import {
 import LoginScreen from './pages/LoginScreen'
 import { TodoApp } from './features/todos/components/TodoApp'
 import Settings from './pages/Settings'
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+  userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed'
+    platform: string
+  }>
+}
+
+function InstallAppButton() {
+  const [installPrompt, setInstallPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null)
+
+  const [isInstalled, setIsInstalled] =
+    useState(false)
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (
+      event: Event,
+    ) => {
+      event.preventDefault()
+
+      setInstallPrompt(
+        event as BeforeInstallPromptEvent,
+      )
+    }
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true)
+      setInstallPrompt(null)
+    }
+
+    const standalone =
+      window.matchMedia(
+        '(display-mode: standalone)',
+      ).matches ||
+      (
+        window.navigator as Navigator & {
+          standalone?: boolean
+        }
+      ).standalone === true
+
+    if (standalone) {
+      setIsInstalled(true)
+    }
+
+    window.addEventListener(
+      'beforeinstallprompt',
+      handleBeforeInstallPrompt,
+    )
+
+    window.addEventListener(
+      'appinstalled',
+      handleAppInstalled,
+    )
+
+    return () => {
+      window.removeEventListener(
+        'beforeinstallprompt',
+        handleBeforeInstallPrompt,
+      )
+
+      window.removeEventListener(
+        'appinstalled',
+        handleAppInstalled,
+      )
+    }
+  }, [])
+
+  const handleInstall = async () => {
+    if (!installPrompt) {
+      return
+    }
+
+    await installPrompt.prompt()
+
+    const { outcome } =
+      await installPrompt.userChoice
+
+    if (outcome === 'accepted') {
+      setIsInstalled(true)
+    }
+
+    setInstallPrompt(null)
+  }
+
+  if (!installPrompt || isInstalled) {
+    return null
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleInstall}
+      className="
+        fixed
+        right-4
+        top-4
+        z-[100]
+        flex
+        items-center
+        gap-2
+        rounded-2xl
+        border-2
+        border-foreground
+        bg-[#ffd1dc]
+        px-4
+        py-3
+        text-sm
+        font-black
+        text-foreground
+        shadow-[4px_4px_0_#27222b]
+        transition-all
+        hover:-translate-y-0.5
+        hover:shadow-[5px_5px_0_#27222b]
+        active:translate-x-1
+        active:translate-y-1
+        active:shadow-[1px_1px_0_#27222b]
+      "
+    >
+      <Download className="h-4 w-4" strokeWidth={2.5} />
+      Install App
+    </button>
+  )
+}
 
 function AppRouter() {
   const {
@@ -144,6 +271,8 @@ export default function App() {
   return (
     <AuthProvider>
       <SettingsProvider>
+        <InstallAppButton />
+
         <AppRouter />
       </SettingsProvider>
     </AuthProvider>
